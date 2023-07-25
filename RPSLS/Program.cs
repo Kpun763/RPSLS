@@ -1,11 +1,15 @@
-﻿namespace RPSLS
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace RPSLS
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             Game game = new Game();
             game.RunGame();
+            game.ChooseNumberOfHumanPlayers();
+            game.CompareGestures();
         }
     }
 }
