@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace RPSLS
         //Constructor
         public Game()
         {
-
+            
         }
 
         //Member Methods (CAN DO)
@@ -47,17 +48,67 @@ namespace RPSLS
 
         public void CreatePlayerObjects(int numberOfHumanPlayers)
         {
+            if (numberOfHumanPlayers == 1) 
+            {
+                Console.WriteLine("Enter name for Player One: ");
+                string playerOneNAme = Console.ReadLine();
+                playerOne = new HumanPlayer(playerOneNAme);
 
+            }
+            else if (numberOfHumanPlayers == 2)
+            {
+                Console.WriteLine("Enter name for Player One: ");
+                string playerOneNAme = Console.ReadLine();
+                playerOne = new HumanPlayer(playerOneNAme);
+
+                Console.WriteLine("Enter name for Player Two: ");
+                string playerTwoNAme = Console.ReadLine();
+                playerTwo = new HumanPlayer(playerTwoNAme);
+            }
+            else 
+            { Console.WriteLine("Player number is invalid. Please choose either 1 or 2 players only."); }
         }
 
         public void CompareGestures()
         {
+            Console.WriteLine($"Player One ({playerOne.name}) chose {playerOne.chosenGesture}");
+            Console.WriteLine($"Player Two ({playerTwo.name}) chose {playerTwo.chosenGesture}");
 
+            int result = playerOne.chosenGesture.CompareTo( playerTwo.chosenGesture );
+
+            if (result == 0)
+            {
+                Console.WriteLine("It's a Draw");
+            }
+            else if (result == -1 || result == 4) 
+            {
+                playerTwo.score++;
+                Console.WriteLine($"Player Two ({playerTwo}) wins the round");
+            }
+            else
+            {
+                playerOne.score++;
+                Console.WriteLine($"Player One ({playerOne}) wins the round");
+            }
         }
 
         public void DisplayGameWinner()
         {
+            Console.WriteLine($"Player One ({playerOne.name}) score: {playerOne.score}");
+            Console.WriteLine($"Player Two ({playerTwo.name}) score: {playerTwo.score}");
 
+            if (playerOne.score >= 4)
+            {
+                Console.WriteLine($"Player One ({playerOne.name}) has won the game!");
+            }
+            else if (playerTwo.score >= 4)
+            {
+                Console.WriteLine($"Player two ({playerTwo.name}) has won the game!");
+            }
+            else 
+            {
+                Console.WriteLine("No winner yet. Keep on playing!");
+            }
         }
 
         public void RunGame()
