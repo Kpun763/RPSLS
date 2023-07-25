@@ -9,7 +9,7 @@ namespace RPSLS
             Game game = new Game();
             game.RunGame();
             game.ChooseNumberOfHumanPlayers();
-            game.CompareGestures();
+            
         }
     }
 }
