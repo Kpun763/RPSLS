@@ -10,7 +10,7 @@ namespace RPSLS
     {
         public HumanPlayer(string name) : base(name) { }
         
-
+  
         public override void ChooseGesture()
         {
             Console.WriteLine("Possible gestures: Rock, Paper, Scissors, Lizard, Spock");

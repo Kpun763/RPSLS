@@ -43,7 +43,7 @@ namespace RPSLS
             } while (!int.TryParse(Console.ReadLine(), out numberOfPlayers) || (numberOfPlayers != 1 && numberOfPlayers != 2));
 
 
-            return 2;
+            return 1;
         }
 
         public void CreatePlayerObjects(int numberOfHumanPlayers)
@@ -51,8 +51,10 @@ namespace RPSLS
             if (numberOfHumanPlayers == 1) 
             {
                 Console.WriteLine("Enter name for Player One: ");
-                string playerOneNAme = Console.ReadLine();
-                playerOne = new HumanPlayer(playerOneNAme);
+                string playerOneName = Console.ReadLine();
+                playerOne = new HumanPlayer(playerOneName);
+
+                playerTwo = new ComputerPlayer("Computer");
 
             }
             else if (numberOfHumanPlayers == 2)
@@ -62,8 +64,8 @@ namespace RPSLS
                 playerOne = new HumanPlayer(playerOneNAme);
 
                 Console.WriteLine("Enter name for Player Two: ");
-                string playerTwoNAme = Console.ReadLine();
-                playerTwo = new HumanPlayer(playerTwoNAme);
+                string playerTwoName = Console.ReadLine();
+                playerTwo = new HumanPlayer(playerTwoName);
             }
             else 
             { Console.WriteLine("Player number is invalid. Please choose either 1 or 2 players only."); }
@@ -83,12 +85,12 @@ namespace RPSLS
             else if (result == -1 || result == 4) 
             {
                 playerTwo.score++;
-                Console.WriteLine($"Player Two ({playerTwo}) wins the round");
+                Console.WriteLine($"Player Two ({playerTwo.name}) wins the round");
             }
             else
             {
                 playerOne.score++;
-                Console.WriteLine($"Player One ({playerOne}) wins the round");
+                Console.WriteLine($"Player One ({playerOne.name}) wins the round");
             }
         }
 
@@ -113,7 +115,30 @@ namespace RPSLS
 
         public void RunGame()
         {
+
             WelcomeMessage();
+            int numberOfHumanPlayers = ChooseNumberOfHumanPlayers();
+            CreatePlayerObjects(numberOfHumanPlayers);
+
+
+            while (true)
+            {
+                Console.WriteLine("\n... Round start!");
+
+                playerOne.ChooseGesture();
+                playerTwo.ChooseGesture();
+
+                CompareGestures();
+
+                DisplayGameWinner();
+
+                if (playerOne.score >= 4 || playerTwo.score >= 4)
+                {
+                    Console.WriteLine("\n... Game Completed!");
+                    DisplayGameWinner();
+                    break;
+                }
+            }
         }
     }
 }
